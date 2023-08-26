@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FiapStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230826165747_Primeira-migration")]
+    [Migration("20230826181307_Primeira-migration")]
     partial class Primeiramigration
     {
         /// <inheritdoc />
@@ -27,6 +27,7 @@ namespace FiapStore.Migrations
             modelBuilder.Entity("FiapStore.Entity.Pedido", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
@@ -47,6 +48,7 @@ namespace FiapStore.Migrations
             modelBuilder.Entity("FiapStore.Entity.Usuario", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));

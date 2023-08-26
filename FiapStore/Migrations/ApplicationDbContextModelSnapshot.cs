@@ -24,15 +24,13 @@ namespace FiapStore.Migrations
             modelBuilder.Entity("FiapStore.Entity.Pedido", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("NomeProduto")
                         .HasColumnType("VARCHAR(100)");
-
-                    b.Property<decimal>("PrecoTotal")
-                        .HasColumnType("DECIMAL");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("INT");
@@ -47,6 +45,7 @@ namespace FiapStore.Migrations
             modelBuilder.Entity("FiapStore.Entity.Usuario", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INT");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));

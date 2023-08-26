@@ -12,6 +12,9 @@ namespace FiapStore.Configurations
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).HasColumnType("INT").UseIdentityColumn();
             builder.Property(u => u.Nome).HasColumnType("VARCHAR(100)");
+            builder.Property(u => u.NomeUsuario).IsRequired().HasColumnType("VARCHAR(50)");
+            builder.Property(u => u.Senha).IsRequired().HasColumnType("VARCHAR(50)");
+            builder.Property(u => u.Permissao).HasConversion<int>().IsRequired();
             builder.HasMany(u => u.Pedidos)
                         .WithOne(p => p.Usuario)
                         .HasForeignKey(p => p.UsuarioId)

@@ -10,21 +10,32 @@ namespace FiapStore.Controllers;
 public class UsuarioController : ControllerBase
 {
     private IUsuarioRepository _usuarioRepository;
-
-    public UsuarioController(IUsuarioRepository usuarioRepository)
+    private readonly ILogger<UsuarioController> _logger;
+    public UsuarioController(IUsuarioRepository usuarioRepository, ILogger<UsuarioController> logger)
     {
         _usuarioRepository = usuarioRepository;
+        _logger = logger;
     }
 
     [HttpGet("obter-todos-usuarios")]
     public IActionResult ObterTodosUsuarios()
     {
-        return Ok(_usuarioRepository.ObterTodos());
+        try
+        {
+            return Ok(_usuarioRepository.ObterTodos());
+        }
+        catch (Exception ex)
+        {
+
+            _logger.LogError(ex, $"{DateTime.Now:yyyy-MM-dd} | Exception forçada: {ex.Message}");
+            return BadRequest();
+        }
     }
-    
+
     [HttpGet("obter-usuario/{id}")]
     public IActionResult ObterUsuario(int id)
     {
+        _logger.LogInformation("Executando método ObterPorId");
         return Ok(_usuarioRepository.ObterPorId(id));
     }
 
@@ -32,7 +43,9 @@ public class UsuarioController : ControllerBase
     public IActionResult CadastrarUsuario(CadastrarUsuarioDTO usuarioDto)
     {
         _usuarioRepository.Cadastrar(new Usuario(usuarioDto));
-        return Ok("Usuário cadastrado com sucesso");
+        var mensagem = $"Usuário cadastrado com sucesso | Nome: {usuarioDto.Nome}";
+        _logger.LogWarning(mensagem);
+        return Ok(mensagem);
     }
 
     [HttpPut]

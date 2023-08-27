@@ -19,6 +19,17 @@ public class UsuarioController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Obtém todos os usuários armazenados
+    /// </summary>
+    /// <returns></returns>
+    /// <remarks>
+    /// Exemplo: 
+    /// 
+    /// Enviar para requisição</remarks>
+    /// <response code="200">retorna sucesso</response>
+    /// <response code="401">Não autenticado</response>
+    /// <response code="403">Não autorizado</response>
     [Authorize]
     [Authorize(Roles = Permissoes.Administrador)]
     [HttpGet("obter-todos-usuarios")]
@@ -36,6 +47,11 @@ public class UsuarioController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Obtém um usuário por id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [Authorize]
     [Authorize(Roles = $"{Permissoes.Administrador}, {Permissoes.Funcionario}")]
     [HttpGet("obter-usuario/{id}")]
@@ -45,6 +61,11 @@ public class UsuarioController : ControllerBase
         return Ok(_usuarioRepository.ObterPorId(id));
     }
 
+    /// <summary>
+    /// Cadastrar um novo usuário
+    /// </summary>
+    /// <param name="usuarioDto"></param>
+    /// <returns></returns>
     [Authorize]
     [Authorize(Roles = $"{Permissoes.Administrador}, {Permissoes.Funcionario}")]
     [HttpPost]
@@ -56,6 +77,11 @@ public class UsuarioController : ControllerBase
         return Ok(mensagem);
     }
 
+    /// <summary>
+    /// Realiza alteração em um usuário 
+    /// </summary>
+    /// <param name="usuarioDto"></param>
+    /// <returns></returns>
     [HttpPut]
     public IActionResult AlterarUsuario(AlterarUsuarioDTO usuarioDto)
     {
@@ -63,6 +89,11 @@ public class UsuarioController : ControllerBase
         return Ok("Usuário alterado com sucesso");
     }
 
+    /// <summary>
+    /// Deleta um usuário por id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     public IActionResult DeletarUsuario(int id)
     {
@@ -70,6 +101,11 @@ public class UsuarioController : ControllerBase
         return Ok("Usuário deletado com sucesso");
     }
 
+    /// <summary>
+    /// Obtém todos os usuários com pedidos
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("obter-todos-com-pedidos/{id}")]
     public IActionResult ObterTodosComPedidos(int id)
     {
